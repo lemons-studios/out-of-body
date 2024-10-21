@@ -273,7 +273,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 50
+  m_FocalLength: 8.402491
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -288,7 +288,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 125
+  field of view: 110
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -396,7 +396,7 @@ Transform:
   m_GameObject: {fileID: 1537299228}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.85, y: 5.22, z: -4.9}
+  m_LocalPosition: {x: -4.85, y: 5.22, z: -9.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -531,8 +531,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a20c3fe9565fec1429970aa20be75f25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumAngle: 0
-  minimumAngle: 0
+  maximumAngle: 90
+  minimumAngle: -90
+  zoomFactor: 10
 --- !u!1 &1860998523
 GameObject:
   m_ObjectHideFlags: 0
