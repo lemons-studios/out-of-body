@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    private Transform playerModel;
-    private Camera playerCamera;
     public float zoomFactor;
-    public float maximumFieldOfView = 150;
-    public float minimumFieldOfView = 60;
     
-    private float mouseSensitivity = 5f;
+    private Camera playerCamera;
     private PlayerInput playerInput;
+    private Transform playerModel;
+    
+    private readonly float[] fieldOfViewClamp = { 60, 150 };
+    
     private void Start()
     {
         playerModel = GameObject.FindGameObjectWithTag("Player").transform;
@@ -24,10 +24,9 @@ public class PlayerCamera : MonoBehaviour
         {
             Vector2 playerLook = playerInput.Game.Look.ReadValue<Vector2>();
             if(playerLook != Vector2.zero) onPlayerLook(playerLook);
-
-            Vector2 cameraZoom = playerInput.Game.Zoom.ReadValue<Vector2>();
-            float zoomAmount = -cameraZoom.y / zoomFactor;
             
+            // Use negative value to make the scroll/zoom direction correct
+            float zoomAmount = -playerInput.Game.Zoom.ReadValue<Vector2>().y / zoomFactor; 
             if(zoomAmount != 0) zoomCamera(zoomAmount);
         }
     }
@@ -40,6 +39,7 @@ public class PlayerCamera : MonoBehaviour
 
     private void zoomCamera(float zoomDelta)
     {
-        playerCamera.fieldOfView = Mathf.Clamp(playerCamera.fieldOfView + zoomDelta, minimumFieldOfView, maximumFieldOfView);
+        // TODO: Make zoom smooth
+        playerCamera.fieldOfView = Mathf.Clamp(playerCamera.fieldOfView + zoomDelta, fieldOfViewClamp[0], fieldOfViewClamp[1]);
     }
 }
