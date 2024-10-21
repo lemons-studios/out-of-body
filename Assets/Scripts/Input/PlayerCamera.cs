@@ -1,18 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    public Transform playerModel;
+    private Transform playerModel;
     public float maximumAngle, minimumAngle;
     
     private float mouseSensitivity = 5f;
     private PlayerInput playerInput;
     private void Start()
     {
+        playerModel = GameObject.FindGameObjectWithTag("Player").transform;
+        
         playerInput = new PlayerInput();
         playerInput.Enable();
     }
