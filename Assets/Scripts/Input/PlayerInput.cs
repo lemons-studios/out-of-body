@@ -71,6 +71,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""e0588a42-605a-466a-ad0b-e288ceaf798a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -170,6 +179,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ec64906-ad0f-44ea-adae-10756b475a45"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -284,6 +304,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Game_Zoom = m_Game.FindAction("Zoom", throwIfNotFound: true);
         m_Game_Interact = m_Game.FindAction("Interact", throwIfNotFound: true);
         m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
+        m_Game_Sprint = m_Game.FindAction("Sprint", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_NavigateUp = m_Menu.FindAction("NavigateUp", throwIfNotFound: true);
@@ -356,6 +377,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_Zoom;
     private readonly InputAction m_Game_Interact;
     private readonly InputAction m_Game_Jump;
+    private readonly InputAction m_Game_Sprint;
     public struct GameActions
     {
         private @PlayerInput m_Wrapper;
@@ -365,6 +387,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Zoom => m_Wrapper.m_Game_Zoom;
         public InputAction @Interact => m_Wrapper.m_Game_Interact;
         public InputAction @Jump => m_Wrapper.m_Game_Jump;
+        public InputAction @Sprint => m_Wrapper.m_Game_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -389,6 +412,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Sprint.started += instance.OnSprint;
+            @Sprint.performed += instance.OnSprint;
+            @Sprint.canceled += instance.OnSprint;
         }
 
         private void UnregisterCallbacks(IGameActions instance)
@@ -408,6 +434,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Sprint.started -= instance.OnSprint;
+            @Sprint.performed -= instance.OnSprint;
+            @Sprint.canceled -= instance.OnSprint;
         }
 
         public void RemoveCallbacks(IGameActions instance)
@@ -502,6 +531,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnZoom(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {
