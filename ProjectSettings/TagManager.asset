@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerJumpDetector
   - PlayerViewCamera
+  - SceneCamera
   layers:
   - Default
   - TransparentFX

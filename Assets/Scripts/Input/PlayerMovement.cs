@@ -1,14 +1,21 @@
 using UnityEngine;
 
+// Partial help from the robot on this one (I still wrote most of this script)
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerInput playerInput;
     private Rigidbody playerRb;
     private GameObject jumpDetectorFirePoint;
-
+    private Vector3 currentVelocity;
+    
+    public float acceleration = 10f;
+    public float deceleration = 10f;
+    
     public float moveSpeed = 5;
     public float jumpForce = 10;
     public float sprintMultiplier = 2f;
+    
+
 
     private void Awake()
     {
@@ -29,26 +36,19 @@ public class PlayerMovement : MonoBehaviour
         if (playerRb)
         {
             Vector2 movementInput = playerInput.Game.Movement.ReadValue<Vector2>();
+            Vector3 targetVelocity = Vector3.zero;
+
             if (movementInput != Vector2.zero)
             {
-                // Only call OnPlayerMove() when player input is received, which is slightly more efficient
-                OnPlayerMove(movementInput);
+                targetVelocity = transform.TransformDirection(new Vector3(movementInput.x, 0, movementInput.y)) * moveSpeed;
             }
-        }
-        
-        // Prevent skidding/sliding after movement by reducing the velocity of the player GameObject
-        float[] currentPlayerVelocity = { playerRb.velocity.x, playerRb.velocity.z };
-        for (int i = 0; i < 2; i++)
-        {
-            currentPlayerVelocity[i] *= Time.deltaTime;
-        }
-        playerRb.velocity = new Vector3(currentPlayerVelocity[0], playerRb.velocity.y, currentPlayerVelocity[1]);
-    }
 
-    private void OnPlayerMove(Vector2 moveDelta)
-    {
-        Vector3 movementVector = transform.TransformDirection(new Vector3(moveDelta.x, 0, moveDelta.y));
-        playerRb.AddForce(movementVector * moveSpeed, ForceMode.VelocityChange);
+            // Smoothly interpolate to the target velocity
+            currentVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, (targetVelocity.magnitude > 0 ? acceleration : deceleration) * Time.fixedDeltaTime);
+            currentVelocity.y = playerRb.velocity.y; // Preserve vertical velocity
+
+            playerRb.velocity = currentVelocity;
+        }
     }
     
     private void Jump()
@@ -61,15 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void onSprintToggled(bool started)
     {
-        switch (started)
-        {
-            case true:
-                moveSpeed *= sprintMultiplier;
-                break;
-            case false:
-                moveSpeed /= sprintMultiplier;
-                break;
-        }
+        moveSpeed *= started ? sprintMultiplier : 1f / sprintMultiplier; // Genuine genius from the robot from this one too, I should absolutely get better at math
     }
     
     private bool isPlayerGrounded()
@@ -80,8 +72,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void OnDestroy()
     {
-        // Prevent scene load shenanigans involving the player controller
+        // Prevent scene load shenanigans involving the player controller (I'm serious when I say I lost sleep due to this simple issue)
         playerInput.Disable();
     }
-
 }
