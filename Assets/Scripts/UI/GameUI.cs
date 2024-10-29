@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GameUI : MonoBehaviour
 {
-    private TextMeshProUGUI realDate, cameraNumber, levelTime;
+    private TextMeshProUGUI realDate, cameraText, levelTime;
     
     private void Start()
     {
-        cameraNumber = GameObject.FindGameObjectWithTag("CameraText").GetComponent<TextMeshProUGUI>();
+        cameraText = GameObject.FindGameObjectWithTag("CameraText").GetComponent<TextMeshProUGUI>();
         realDate = GameObject.FindGameObjectWithTag("RealLifeTimeText").GetComponent<TextMeshProUGUI>();
         levelTime = GameObject.FindGameObjectWithTag("LevelTimeText").GetComponent<TextMeshProUGUI>();
     }
@@ -34,5 +34,10 @@ public class GameUI : MonoBehaviour
     {
         DateTime currentTime = DateTime.Now;
         return currentTime.ToString("dd-MM-yyyy");
+    }
+
+    public void setCameraText(int cameraNumber)
+    {
+        cameraText.text = $"Camera #{cameraNumber}";
     }
 }

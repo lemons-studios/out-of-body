@@ -10,6 +10,7 @@ TagManager:
   - CameraText
   - RealLifeTimeText
   - LevelTimeText
+  - GameUIRoot
   layers:
   - Default
   - TransparentFX
