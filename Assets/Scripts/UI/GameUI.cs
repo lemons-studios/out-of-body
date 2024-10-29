@@ -1,12 +1,11 @@
 using System;
-using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class GameUI : MonoBehaviour
 {
     private TextMeshProUGUI realDate, cameraNumber, levelTime;
-
+    
     private void Start()
     {
         cameraNumber = GameObject.FindGameObjectWithTag("CameraText").GetComponent<TextMeshProUGUI>();
