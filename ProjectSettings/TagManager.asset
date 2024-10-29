@@ -7,6 +7,9 @@ TagManager:
   - PlayerJumpDetector
   - PlayerViewCamera
   - SceneCamera
+  - CameraText
+  - RealLifeTimeText
+  - LevelTimeText
   layers:
   - Default
   - TransparentFX
