@@ -73,3 +73,6 @@ crashlytics-build.properties
 
 # Jetbrains Files
 .idea/
+
+# Blender .blend1 backups
+/[Aa]ssets/[Mm]odels/*.blend1

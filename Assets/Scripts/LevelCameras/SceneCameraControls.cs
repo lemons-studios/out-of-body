@@ -8,7 +8,8 @@ public class SceneCameraControls : MonoBehaviour
 
     public int getActivePlayerCamera()
     {
-        int x = 0;
+        // not using a proper variable name since I couldn't find a good thing to call this
+        int x = 0; 
         for (int i = 0; i < sceneCameras.Count; i++)
         {
             if (sceneCameras[i].enabled) x = i;

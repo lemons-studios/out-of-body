@@ -15,15 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "35cd2687-ee5d-47fa-b2ee-bfe8665eaa5c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "901d7608-b47f-4fcc-8853-bb15fbf8dcfa",
@@ -54,24 +45,6 @@
                     "name": "RotateRight",
                     "type": "Button",
                     "id": "a281cf54-877b-4f0b-9ed0-c44d068480a5",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RotateCameraLeft",
-                    "type": "Value",
-                    "id": "ae81bc42-efdf-4070-9a4e-8c71e7467094",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "RotateCameraRight",
-                    "type": "Button",
-                    "id": "deccb807-ec84-4e2c-bd53-bedb6ad6b72b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -136,12 +109,12 @@
                 },
                 {
                     "name": "",
-                    "id": "61cc2269-a849-4f20-8a54-3fa997a713b1",
-                    "path": "<Keyboard>/e",
+                    "id": "3f0c40d4-f2dc-45f2-bdbf-ba7bdb74ebc2",
+                    "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Interact",
+                    "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -149,6 +122,17 @@
                     "name": "",
                     "id": "8207c7a4-1b8f-4780-ad72-7c83b84db7ba",
                     "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e3b734d6-7878-4e5a-a4a6-fcb273d5bee2",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -169,8 +153,30 @@
                 },
                 {
                     "name": "",
+                    "id": "872415dd-d2f0-4420-a566-a14efc2e75ee",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e169b9ac-dc7a-4ab6-b935-8772d82ec966",
                     "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "351b14f5-59d4-442f-be13-395dc2393247",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -191,23 +197,40 @@
                 },
                 {
                     "name": "",
-                    "id": "fbe77186-fc66-4a9f-b0e0-6c2e4afd9ab1",
-                    "path": "<Keyboard>/rightArrow",
+                    "id": "f52f4180-ef71-4a8e-a435-038dbb922d15",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RotateCameraRight",
+                    "action": "RotateRight",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "e04ddc61-7407-41d6-b5b9-c36bdbedc49e",
+            "actions": [
+                {
+                    "name": "ShowControls",
+                    "type": "Button",
+                    "id": "ddadeb2b-cdcf-4fce-815d-bbf53584257d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
                 {
                     "name": "",
-                    "id": "6f68cbc3-b111-48b5-9fff-e57005f9996c",
-                    "path": "<Keyboard>/leftArrow",
+                    "id": "6577842e-ef06-43dc-a261-c82068c6c3fa",
+                    "path": "<Keyboard>/h",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RotateCameraLeft",
+                    "action": "ShowControls",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

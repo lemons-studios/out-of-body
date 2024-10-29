@@ -37,15 +37,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Interact"",
-                    ""type"": ""Button"",
-                    ""id"": ""35cd2687-ee5d-47fa-b2ee-bfe8665eaa5c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""901d7608-b47f-4fcc-8853-bb15fbf8dcfa"",
@@ -76,24 +67,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": ""RotateRight"",
                     ""type"": ""Button"",
                     ""id"": ""a281cf54-877b-4f0b-9ed0-c44d068480a5"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""RotateCameraLeft"",
-                    ""type"": ""Value"",
-                    ""id"": ""ae81bc42-efdf-4070-9a4e-8c71e7467094"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""RotateCameraRight"",
-                    ""type"": ""Button"",
-                    ""id"": ""deccb807-ec84-4e2c-bd53-bedb6ad6b72b"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -158,12 +131,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""61cc2269-a849-4f20-8a54-3fa997a713b1"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""id"": ""3f0c40d4-f2dc-45f2-bdbf-ba7bdb74ebc2"",
+                    ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Interact"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -171,6 +144,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""8207c7a4-1b8f-4780-ad72-7c83b84db7ba"",
                     ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3b734d6-7878-4e5a-a4a6-fcb273d5bee2"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -191,8 +175,30 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""872415dd-d2f0-4420-a566-a14efc2e75ee"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""e169b9ac-dc7a-4ab6-b935-8772d82ec966"",
                     ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""351b14f5-59d4-442f-be13-395dc2393247"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -213,23 +219,40 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""fbe77186-fc66-4a9f-b0e0-6c2e4afd9ab1"",
-                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""id"": ""f52f4180-ef71-4a8e-a435-038dbb922d15"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RotateCameraRight"",
+                    ""action"": ""RotateRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
+                }
+            ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""e04ddc61-7407-41d6-b5b9-c36bdbedc49e"",
+            ""actions"": [
+                {
+                    ""name"": ""ShowControls"",
+                    ""type"": ""Button"",
+                    ""id"": ""ddadeb2b-cdcf-4fce-815d-bbf53584257d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""6f68cbc3-b111-48b5-9fff-e57005f9996c"",
-                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""id"": ""6577842e-ef06-43dc-a261-c82068c6c3fa"",
+                    ""path"": ""<Keyboard>/h"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RotateCameraLeft"",
+                    ""action"": ""ShowControls"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -241,13 +264,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // Game
         m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
         m_Game_Movement = m_Game.FindAction("Movement", throwIfNotFound: true);
-        m_Game_Interact = m_Game.FindAction("Interact", throwIfNotFound: true);
         m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
         m_Game_Sprint = m_Game.FindAction("Sprint", throwIfNotFound: true);
         m_Game_RotateLeft = m_Game.FindAction("RotateLeft", throwIfNotFound: true);
         m_Game_RotateRight = m_Game.FindAction("RotateRight", throwIfNotFound: true);
-        m_Game_RotateCameraLeft = m_Game.FindAction("RotateCameraLeft", throwIfNotFound: true);
-        m_Game_RotateCameraRight = m_Game.FindAction("RotateCameraRight", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_ShowControls = m_UI.FindAction("ShowControls", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -310,25 +333,19 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Game;
     private List<IGameActions> m_GameActionsCallbackInterfaces = new List<IGameActions>();
     private readonly InputAction m_Game_Movement;
-    private readonly InputAction m_Game_Interact;
     private readonly InputAction m_Game_Jump;
     private readonly InputAction m_Game_Sprint;
     private readonly InputAction m_Game_RotateLeft;
     private readonly InputAction m_Game_RotateRight;
-    private readonly InputAction m_Game_RotateCameraLeft;
-    private readonly InputAction m_Game_RotateCameraRight;
     public struct GameActions
     {
         private @PlayerInput m_Wrapper;
         public GameActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Game_Movement;
-        public InputAction @Interact => m_Wrapper.m_Game_Interact;
         public InputAction @Jump => m_Wrapper.m_Game_Jump;
         public InputAction @Sprint => m_Wrapper.m_Game_Sprint;
         public InputAction @RotateLeft => m_Wrapper.m_Game_RotateLeft;
         public InputAction @RotateRight => m_Wrapper.m_Game_RotateRight;
-        public InputAction @RotateCameraLeft => m_Wrapper.m_Game_RotateCameraLeft;
-        public InputAction @RotateCameraRight => m_Wrapper.m_Game_RotateCameraRight;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -341,9 +358,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
-            @Interact.started += instance.OnInteract;
-            @Interact.performed += instance.OnInteract;
-            @Interact.canceled += instance.OnInteract;
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
@@ -356,12 +370,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @RotateRight.started += instance.OnRotateRight;
             @RotateRight.performed += instance.OnRotateRight;
             @RotateRight.canceled += instance.OnRotateRight;
-            @RotateCameraLeft.started += instance.OnRotateCameraLeft;
-            @RotateCameraLeft.performed += instance.OnRotateCameraLeft;
-            @RotateCameraLeft.canceled += instance.OnRotateCameraLeft;
-            @RotateCameraRight.started += instance.OnRotateCameraRight;
-            @RotateCameraRight.performed += instance.OnRotateCameraRight;
-            @RotateCameraRight.canceled += instance.OnRotateCameraRight;
         }
 
         private void UnregisterCallbacks(IGameActions instance)
@@ -369,9 +377,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
-            @Interact.started -= instance.OnInteract;
-            @Interact.performed -= instance.OnInteract;
-            @Interact.canceled -= instance.OnInteract;
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
@@ -384,12 +389,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @RotateRight.started -= instance.OnRotateRight;
             @RotateRight.performed -= instance.OnRotateRight;
             @RotateRight.canceled -= instance.OnRotateRight;
-            @RotateCameraLeft.started -= instance.OnRotateCameraLeft;
-            @RotateCameraLeft.performed -= instance.OnRotateCameraLeft;
-            @RotateCameraLeft.canceled -= instance.OnRotateCameraLeft;
-            @RotateCameraRight.started -= instance.OnRotateCameraRight;
-            @RotateCameraRight.performed -= instance.OnRotateCameraRight;
-            @RotateCameraRight.canceled -= instance.OnRotateCameraRight;
         }
 
         public void RemoveCallbacks(IGameActions instance)
@@ -407,15 +406,62 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public GameActions @Game => new GameActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_ShowControls;
+    public struct UIActions
+    {
+        private @PlayerInput m_Wrapper;
+        public UIActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ShowControls => m_Wrapper.m_UI_ShowControls;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @ShowControls.started += instance.OnShowControls;
+            @ShowControls.performed += instance.OnShowControls;
+            @ShowControls.canceled += instance.OnShowControls;
+        }
+
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @ShowControls.started -= instance.OnShowControls;
+            @ShowControls.performed -= instance.OnShowControls;
+            @ShowControls.canceled -= instance.OnShowControls;
+        }
+
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     public interface IGameActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnInteract(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnRotateLeft(InputAction.CallbackContext context);
         void OnRotateRight(InputAction.CallbackContext context);
-        void OnRotateCameraLeft(InputAction.CallbackContext context);
-        void OnRotateCameraRight(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnShowControls(InputAction.CallbackContext context);
     }
 }
