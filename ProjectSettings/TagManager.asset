@@ -12,6 +12,7 @@ TagManager:
   - LevelTimeText
   - GameUIRoot
   - MenuSelector
+  - GameVersionText
   layers:
   - Default
   - TransparentFX
