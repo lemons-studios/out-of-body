@@ -24,7 +24,7 @@ public class MainMenu : MonoBehaviour
         
         // Initialize playerInput and set bindings
         playerInput = new PlayerInput();
-        playerInput.UI.DisableSubmenu.performed += _ => toggleMenu(GameObject.FindGameObjectWithTag("SubMenu"));
+        playerInput.UI.DisableSubmenu.performed += _ => toggleSubMenu(GameObject.FindGameObjectWithTag("SubMenu"));
         playerInput.Enable();
         
         // Set version on the version tmp asset
@@ -36,10 +36,19 @@ public class MainMenu : MonoBehaviour
         Application.OpenURL(link);
     }
 
-    public void toggleMenu(GameObject menu)
+    public void toggleSubMenu(GameObject menu)
     {
         if (menu == null) return;
+        if (isSubmenuActive())
+        {
+            GameObject.FindGameObjectWithTag("SubMenu").SetActive(false);
+        }
         menu.SetActive(!menu.activeSelf);
+    }
+
+    private bool isSubmenuActive()
+    {
+        return GameObject.FindGameObjectWithTag("SubMenu") != null;
     }
     
     public void QuitGame()

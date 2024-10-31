@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -13,7 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public float sprintMultiplier = 2f;
     [Space] 
     public float rotateDelay = 0.25f;
-    
+
+    private AudioSource rotationSource;
     private Coroutine rotatePlayerRoutine, rotateHelperRoutine;
     private PlayerInput playerInput;
     private Rigidbody playerRb;
@@ -24,22 +26,19 @@ public class PlayerMovement : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         jumpDetectorFirePoint = GameObject.FindGameObjectWithTag("PlayerJumpDetector");
+        rotationSource = GetComponent<AudioSource>();
         playerRb = GetComponent<Rigidbody>();
+        
         
         // Action bindings
         playerInput = new PlayerInput();
-        
         playerInput.Game.Jump.performed += _ => Jump();
-        
         playerInput.Game.Sprint.started += _ => onSprintToggled(true);
         playerInput.Game.Sprint.canceled += _ => onSprintToggled(false);
-        
         playerInput.Game.RotateLeft.started += _ => onRotateStart(true);
         playerInput.Game.RotateRight.started += _ => onRotateStart(false);
-
         playerInput.Game.RotateLeft.canceled += _ => onRotateEnd();
         playerInput.Game.RotateRight.canceled += _ => onRotateEnd();
-        
         playerInput.Enable();
     }
 
@@ -86,6 +85,10 @@ public class PlayerMovement : MonoBehaviour
     // Long chain of bool carrying, maybe I should just assign it to a class bool
     private void onRotateStart(bool isClockwise)
     {
+        // Enable loop on the rotationSource audio source when player starts rotating
+        rotationSource.loop = true;
+        rotationSource.Play();
+        
         if (rotateHelperRoutine != null)
         {
             StopCoroutine(rotateHelperRoutine);
@@ -95,9 +98,13 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void onRotateEnd()
-    {
-        StopCoroutine(rotateHelperRoutine);
-        rotateHelperRoutine = null;
+    { 
+       // Disable loop on the rotationSource audio source when player stops rotating
+       rotationSource.loop = false;
+       rotationSource.Stop();
+       
+       StopCoroutine(rotateHelperRoutine);
+       rotateHelperRoutine = null;
     }
     
     private IEnumerator rotatePlayerHelper(bool isClockwise)

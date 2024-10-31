@@ -76,7 +76,7 @@ public class GameSettings : MonoBehaviour
     
     public void ToggleCRTEffect(int status)
     {
-        bool toggleMode = toBool(status);
+        bool toggleMode = !toBool(status); // dropdown inverses without this, I'll figure out why later (lol)
         
         if (postProcessData.TryGet<FilmGrain>(out var filmGrain))
         {
