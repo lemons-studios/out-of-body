@@ -13,6 +13,9 @@ TagManager:
   - GameUIRoot
   - MenuSelector
   - GameVersionText
+  - MainMenu
+  - SubMenu
+  - FirstLaunchUI
   layers:
   - Default
   - TransparentFX

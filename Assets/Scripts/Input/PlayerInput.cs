@@ -273,6 +273,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DisableSubmenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""86c4d4ec-26b9-4fa9-a67b-ac0cb7a3b0bd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -284,6 +293,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ShowControls"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b067fc59-5fb8-4df5-bd2b-4ef1e18a4ff8"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShowControls"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5ef37b3d-5fb3-469e-a1d7-cd3ed9ba8197"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DisableSubmenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ddb4529b-dad3-4fe4-b3ef-935d365434aa"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DisableSubmenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -303,6 +345,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_ShowControls = m_UI.FindAction("ShowControls", throwIfNotFound: true);
+        m_UI_DisableSubmenu = m_UI.FindAction("DisableSubmenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -451,11 +494,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_ShowControls;
+    private readonly InputAction m_UI_DisableSubmenu;
     public struct UIActions
     {
         private @PlayerInput m_Wrapper;
         public UIActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @ShowControls => m_Wrapper.m_UI_ShowControls;
+        public InputAction @DisableSubmenu => m_Wrapper.m_UI_DisableSubmenu;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -468,6 +513,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @ShowControls.started += instance.OnShowControls;
             @ShowControls.performed += instance.OnShowControls;
             @ShowControls.canceled += instance.OnShowControls;
+            @DisableSubmenu.started += instance.OnDisableSubmenu;
+            @DisableSubmenu.performed += instance.OnDisableSubmenu;
+            @DisableSubmenu.canceled += instance.OnDisableSubmenu;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -475,6 +523,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @ShowControls.started -= instance.OnShowControls;
             @ShowControls.performed -= instance.OnShowControls;
             @ShowControls.canceled -= instance.OnShowControls;
+            @DisableSubmenu.started -= instance.OnDisableSubmenu;
+            @DisableSubmenu.performed -= instance.OnDisableSubmenu;
+            @DisableSubmenu.canceled -= instance.OnDisableSubmenu;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -504,5 +555,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         void OnShowControls(InputAction.CallbackContext context);
+        void OnDisableSubmenu(InputAction.CallbackContext context);
     }
 }

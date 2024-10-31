@@ -1,19 +1,18 @@
-using System;
 using System.Collections;
-using LemonStudios.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public float menuSelectorMovetime = 0.3f;
-
     public AudioClip menuSelectionSound;
-
+    public float menuSelectorMoveTime = 0.3f;
+    
     private AudioSource mainMenuAudioSource;
     private Coroutine selectorCoroutine;
+    private GameSettings gameSettings;
     private Image buttonSelector;
+    private PlayerInput playerInput;
     private TextMeshProUGUI versionText;
 
     private void Start()
@@ -21,32 +20,53 @@ public class MainMenu : MonoBehaviour
         buttonSelector = GameObject.FindGameObjectWithTag("MenuSelector").GetComponent<Image>();
         versionText = GameObject.FindGameObjectWithTag("GameVersionText").GetComponent<TextMeshProUGUI>();
         mainMenuAudioSource = GetComponentInParent<AudioSource>();
-
-
+        gameSettings = GetComponent<GameSettings>();
+        
+        // Initialize playerInput and set bindings
+        playerInput = new PlayerInput();
+        playerInput.UI.DisableSubmenu.performed += _ => toggleMenu(GameObject.FindGameObjectWithTag("SubMenu"));
+        playerInput.Enable();
+        
+        // Set version on the version tmp asset
         versionText.text = $"Version {Application.version}";
     }
     /* Menu Button methods */
-
-    public void switchMenus()
+    public void OpenLink(string link)
     {
-        LemonUIUtils.SwitchMenus();
+        Application.OpenURL(link);
+    }
+
+    public void toggleMenu(GameObject menu)
+    {
+        if (menu == null) return;
+        menu.SetActive(!menu.activeSelf);
     }
     
-    public void openGithubLink()
+    public void QuitGame()
     {
-        Application.OpenURL("https://github.com/lemons-studios/out-of-body");
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
     }
     
     /* Menu Selector methods*/
     public void moveMenuSelectorHelper(float yPos)
     {
+        // Prevent the selector bar from "moving" to a location it already is at
+        if (yPos == buttonSelector.transform.localPosition.y) return;
+        
         if (selectorCoroutine != null)
         {
-            StopCoroutine(selectorCoroutine);
-            selectorCoroutine = null;
+            // Another layer of selector move prevention
+            if (yPos == 135f || yPos == 0 || yPos == -135)
+            {
+                StopCoroutine(selectorCoroutine);
+                selectorCoroutine = null;
+            }
         }
         mainMenuAudioSource.PlayOneShot(menuSelectionSound);
-        selectorCoroutine = StartCoroutine(moveMenuSelector(yPos, menuSelectorMovetime));
+        selectorCoroutine = StartCoroutine(moveMenuSelector(yPos, menuSelectorMoveTime));
     }
 
     private IEnumerator moveMenuSelector(float targetPosition, float time)
@@ -58,11 +78,17 @@ public class MainMenu : MonoBehaviour
             float currentPosition = buttonSelector.transform.localPosition.y;
             float intermediateYPos = Mathf.Lerp(currentPosition, targetPosition, Mathf.SmoothStep(0, 1, elapsed / time));
 
-            // value of ui on z axis should always be 0 in my case
+            // value of ui on z axis should always be 0, since the ui is 2d
             buttonSelector.transform.localPosition = new Vector3(buttonSelector.transform.localPosition.x, intermediateYPos, 0);
             yield return null;
         }
         
         buttonSelector.transform.localPosition = new Vector3(buttonSelector.transform.localPosition.x, targetPosition, 0);
+    }
+    
+    // Prevent playerInput from causing issues on subsequent reloads
+    private void OnDisable()
+    {
+        playerInput.Disable();
     }
 }

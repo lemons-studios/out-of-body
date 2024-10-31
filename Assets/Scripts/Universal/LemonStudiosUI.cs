@@ -67,7 +67,6 @@ namespace LemonStudios.UI
             }
         }
         
-        
         // Exact same method as above but for TextMeshProUGUI elements instead of an image
         public static IEnumerator SmoothAlphaUpdate(TextMeshProUGUI targetGraphic, float targetAlpha, float animationDuration)
         {
