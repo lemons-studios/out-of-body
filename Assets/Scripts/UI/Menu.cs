@@ -81,6 +81,11 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(0);
     }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+    }
     
     /* Menu Selector methods*/
     public void moveMenuSelectorHelper(float yPos)
