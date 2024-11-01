@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
@@ -36,6 +37,11 @@ public class MainMenu : MonoBehaviour
         Application.OpenURL(link);
     }
 
+    public void StartGame()
+    {
+        SceneManager.LoadSceneAsync("Level1");
+    }
+    
     public void toggleSubMenu(GameObject menu)
     {
         if (menu == null) return;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -11,12 +12,7 @@ public class GameUI : MonoBehaviour
         cameraText = GameObject.FindGameObjectWithTag("CameraText").GetComponent<TextMeshProUGUI>();
         realDate = GameObject.FindGameObjectWithTag("RealLifeTimeText").GetComponent<TextMeshProUGUI>();
         levelTime = GameObject.FindGameObjectWithTag("LevelTimeText").GetComponent<TextMeshProUGUI>();
-    }
-
-    private void Update()
-    {
-        levelTime.text = $"Time: {normalizeLevelTime(Mathf.FloorToInt(Time.timeSinceLevelLoad))}";
-        realDate.text = $"{normalizeRealDate()} {normalizeRealTime(DateTime.Now.TimeOfDay.TotalSeconds)}";
+        StartCoroutine(UpdateGameUI());
     }
 
     private string normalizeLevelTime(int rawTime)
@@ -39,5 +35,16 @@ public class GameUI : MonoBehaviour
     public void setCameraText(int cameraNumber)
     {
         cameraText.text = $"Camera #{cameraNumber}";
+    }
+
+    private IEnumerator UpdateGameUI()
+    {
+        // Much more efficient than putting this in Update()
+        while (true)
+        {
+            levelTime.text = $"Time: {normalizeLevelTime(Mathf.FloorToInt(Time.timeSinceLevelLoad))}";
+            realDate.text = $"{normalizeRealDate()} {normalizeRealTime(DateTime.Now.TimeOfDay.TotalSeconds)}";
+            yield return new WaitForSeconds(1);
+        }
     }
 }

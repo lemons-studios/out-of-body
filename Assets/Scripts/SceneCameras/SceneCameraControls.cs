@@ -7,6 +7,8 @@ public class SceneCameraControls : MonoBehaviour
     [Tooltip("Populate manually or you're in for a bad time")]
     public List<Camera> sceneCameras;
 
+
+    
     private int getActivePlayerCamera()
     {
         // not using a proper variable name since I couldn't find a good thing to call this
@@ -21,6 +23,7 @@ public class SceneCameraControls : MonoBehaviour
         }
         return x;
     }
+    
     
     public void switchSceneCameraView(int regionEnable)
     {

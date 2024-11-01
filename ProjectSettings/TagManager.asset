@@ -16,6 +16,7 @@ TagManager:
   - MainMenu
   - SubMenu
   - FirstLaunchUI
+  - SceneCameraRegion
   layers:
   - Default
   - TransparentFX
