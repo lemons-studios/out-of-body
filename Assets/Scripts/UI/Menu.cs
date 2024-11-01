@@ -4,28 +4,24 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainMenu : MonoBehaviour
+public class Menu : MonoBehaviour
 {
     public AudioClip menuSelectionSound;
+    public AudioSource mainMenuAudioSource;
+    public GameObject pauseMenu;
+    public Image buttonSelector;
+    public TextMeshProUGUI versionText;
     public float menuSelectorMoveTime = 0.3f;
     
-    private AudioSource mainMenuAudioSource;
     private Coroutine selectorCoroutine;
-    private GameSettings gameSettings;
-    private Image buttonSelector;
     private PlayerInput playerInput;
-    private TextMeshProUGUI versionText;
-
+    
     private void Start()
     {
-        buttonSelector = GameObject.FindGameObjectWithTag("MenuSelector").GetComponent<Image>();
-        versionText = GameObject.FindGameObjectWithTag("GameVersionText").GetComponent<TextMeshProUGUI>();
-        mainMenuAudioSource = GetComponentInParent<AudioSource>();
-        gameSettings = GetComponent<GameSettings>();
         
         // Initialize playerInput and set bindings
         playerInput = new PlayerInput();
-        playerInput.UI.DisableSubmenu.performed += _ => toggleSubMenu(GameObject.FindGameObjectWithTag("SubMenu"));
+        playerInput.UI.DisableSubmenu.performed += _ => escapeActions(GameObject.FindGameObjectWithTag("SubMenu"));
         playerInput.Enable();
         
         // Set version on the version tmp asset
@@ -42,9 +38,25 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadSceneAsync("Level1");
     }
     
-    public void toggleSubMenu(GameObject menu)
+    public void escapeActions(GameObject menu)
     {
-        if (menu == null) return;
+        // Needed for pause menu resuming by escape key
+        // If Menu is null, then the player is on the main pause menu with no submenus open, meaning that the escape key action should instead resume the game instead of trying to close a submenu
+        if (menu == null)
+        {
+            if (SceneManager.GetActiveScene().buildIndex != 0 && pauseMenu != null)
+            {
+                pauseMenu.SetActive(Time.timeScale != 0);
+                
+                // I love ternary expressions
+                bool isPaused = Time.timeScale == 0;
+                Cursor.lockState = isPaused ? CursorLockMode.Locked :  CursorLockMode.None; // why is this inversed
+                Time.timeScale = isPaused ? 1 : 0;
+                return;
+            }
+            return;
+        }
+        
         if (isSubmenuActive())
         {
             GameObject.FindGameObjectWithTag("SubMenu").SetActive(false);
@@ -64,11 +76,17 @@ public class MainMenu : MonoBehaviour
 #endif
         Application.Quit();
     }
+
+    public void returnToMainMenu()
+    {
+        SceneManager.LoadSceneAsync(0);
+    }
     
     /* Menu Selector methods*/
     public void moveMenuSelectorHelper(float yPos)
     {
         // Prevent the selector bar from "moving" to a location it already is at
+        // ReSharper disable three CompareOfFloatsByEqualityOperator (positions are whole numbers and therefore won't have any funky floating point inaccuracies)
         if (yPos == buttonSelector.transform.localPosition.y) return;
         
         if (selectorCoroutine != null)
@@ -89,7 +107,7 @@ public class MainMenu : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < time)
         {
-            elapsed += Time.deltaTime;
+            elapsed += Time.unscaledDeltaTime;
             float currentPosition = buttonSelector.transform.localPosition.y;
             float intermediateYPos = Mathf.Lerp(currentPosition, targetPosition, Mathf.SmoothStep(0, 1, elapsed / time));
 
