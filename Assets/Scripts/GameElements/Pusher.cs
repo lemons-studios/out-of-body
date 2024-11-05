@@ -19,7 +19,7 @@ public class Pusher : MonoBehaviour
         while (gameObject.transform.position != movePositions[currentPosition].transform.position)
         {
             float elapsed = 0;
-            Vector3 objectPosition = gameObject.transform.position
+            Vector3 objectPosition = gameObject.transform.position;
             Vector3 targetPosition = movePositions[currentPosition].transform.position;
             while (elapsed < moveTime)
             {
