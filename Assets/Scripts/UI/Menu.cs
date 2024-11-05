@@ -21,7 +21,7 @@ public class Menu : MonoBehaviour
         
         // Initialize playerInput and set bindings
         playerInput = new PlayerInput();
-        playerInput.UI.DisableSubmenu.performed += _ => escapeActions(GameObject.FindGameObjectWithTag("SubMenu"));
+        playerInput.UI.DisableSubmenu.performed += _ => EscapeActions();
         playerInput.Enable();
         
         // Set version on the version tmp asset
@@ -38,35 +38,34 @@ public class Menu : MonoBehaviour
         SceneManager.LoadSceneAsync("Level1");
     }
     
-    public void escapeActions(GameObject menu)
+    private void EscapeActions()
     {
         // Needed for pause menu resuming by escape key
         // If Menu is null, then the player is on the main pause menu with no submenus open, meaning that the escape key action should instead resume the game instead of trying to close a submenu
-        if (menu == null)
-        {
-            if (SceneManager.GetActiveScene().buildIndex != 0 && pauseMenu != null)
-            {
-                pauseMenu.SetActive(Time.timeScale != 0);
-                
-                // I love ternary expressions
-                bool isPaused = Time.timeScale == 0;
-                Cursor.lockState = isPaused ? CursorLockMode.Locked :  CursorLockMode.None; // why is this inversed
-                Time.timeScale = isPaused ? 1 : 0;
-                return;
-            }
-            return;
-        }
-        
+
         if (isSubmenuActive())
         {
             GameObject.FindGameObjectWithTag("SubMenu").SetActive(false);
         }
-        menu.SetActive(!menu.activeSelf);
+        else if (SceneManager.GetActiveScene().buildIndex != 0 && pauseMenu != null)
+        {
+            pauseMenu.SetActive(Time.timeScale != 0);
+                
+            // I love ternary expressions
+            bool isPaused = Time.timeScale == 0;
+            Cursor.lockState = isPaused ? CursorLockMode.Locked :  CursorLockMode.None; // why is this inversed
+            Time.timeScale = isPaused ? 1 : 0;
+        }
     }
-
+    
     private bool isSubmenuActive()
     {
         return GameObject.FindGameObjectWithTag("SubMenu") != null;
+    }
+
+    public void ToggleSubmenu(GameObject SubMenu)
+    {
+        SubMenu.SetActive(!SubMenu.activeSelf);
     }
     
     public void QuitGame()
@@ -84,7 +83,12 @@ public class Menu : MonoBehaviour
 
     public void ResumeGame()
     {
-        Time.timeScale = 1;
+        // Lazy fix to my game resume method
+        EscapeActions();
+        if (Time.timeScale != 1)
+        {
+            Time.timeScale = 1;
+        }
     }
     
     /* Menu Selector methods*/
