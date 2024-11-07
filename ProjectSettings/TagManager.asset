@@ -18,6 +18,7 @@ TagManager:
   - FirstLaunchUI
   - SceneCameraRegion
   - physicsRotationEmpty
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

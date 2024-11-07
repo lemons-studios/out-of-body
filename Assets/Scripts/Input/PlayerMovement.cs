@@ -140,7 +140,6 @@ public class PlayerMovement : MonoBehaviour
             
             gameObject.transform.rotation = Quaternion.Euler(playerTransform.rotation.x, intermediateRotation, playerTransform.rotation.z);
             amountRotated += (float) Math.Round(gameObject.transform.rotation.y, 5);
-            Debug.Log(amountRotated);
             yield return null;
         }
         

@@ -6,8 +6,6 @@ public class SceneCameraControls : MonoBehaviour
 {
     [Tooltip("Populate manually or you're in for a bad time")]
     public List<Camera> sceneCameras;
-
-
     
     private int getActivePlayerCamera()
     {
