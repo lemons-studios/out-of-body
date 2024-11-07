@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 // Partial help from the robot on this one (I still wrote most of this script)
@@ -21,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody playerRb;
     private GameObject jumpDetectorFirePoint;
     private Vector3 currentVelocity;
+
+    private float amountRotated = 0;
     
     private void Awake()
     {
@@ -124,7 +127,6 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator rotatePlayer(bool isClockwise, float duration = 0.015f)
     {
         Transform playerTransform = gameObject.transform;
-        
         float startRotation = playerTransform.eulerAngles.y;
         float targetRotation = startRotation + (isClockwise ? -rotateSpeed : rotateSpeed);
         float elapsed = 0f;
@@ -137,13 +139,41 @@ public class PlayerMovement : MonoBehaviour
             float intermediateRotation = Mathf.LerpAngle(startRotation, targetRotation, Mathf.SmoothStep(0f, 1f, t));
             
             gameObject.transform.rotation = Quaternion.Euler(playerTransform.rotation.x, intermediateRotation, playerTransform.rotation.z);
+            amountRotated += (float) Math.Round(gameObject.transform.rotation.y, 5);
+            Debug.Log(amountRotated);
             yield return null;
         }
         
         // Adjust to final rotation to prevent rounding errors with floats
         gameObject.transform.rotation = Quaternion.Euler(0, targetRotation, 0);
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        GameObject collidedObject = other.gameObject;
+        if (collidedObject.layer == 6)
+        {
+            FixedJoint movingPhysicsJoint = gameObject.AddComponent<FixedJoint>();
+            Rigidbody connectedRb = other.gameObject.GetComponentInParent<Rigidbody>();
+            movingPhysicsJoint.connectedBody = connectedRb;
+            movingPhysicsJoint.massScale = playerRb.mass;
+            movingPhysicsJoint.connectedMassScale = connectedRb.mass;
+        }
+    }
+
+    public float GetAmountRotated()
+    {
+        return amountRotated;
+    }
     
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.layer == 6)
+        {
+            Destroy(gameObject.GetComponent<FixedJoint>());
+        }
+    }
+
     private void OnDestroy()
     {
         // Prevent scene load shenanigans involving the player controller (I'm serious when I say I lost sleep due to this simple issue)

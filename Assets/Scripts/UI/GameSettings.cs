@@ -16,11 +16,10 @@ public class GameSettings : MonoBehaviour
     public TMP_Dropdown qualityDropdown, aaQualityDropdown, crtDropdown;
     public Slider volumeSlider;
     
-    private UniversalAdditionalCameraData urpCamData;
+    public UniversalAdditionalCameraData[] urpCamData;
 
     private void Awake()
     {
-        urpCamData = GetComponentInParent<UniversalAdditionalCameraData>();
         if (PlayerPrefs.GetInt("firstLaunchComplete") == 1)
         {
             SetOptionsValues();
@@ -59,17 +58,20 @@ public class GameSettings : MonoBehaviour
     
     public void SetAntiAliasingQuality(int newQuality)
     {
-        urpCamData.antialiasingQuality = newQuality switch
+        foreach (UniversalAdditionalCameraData camData in urpCamData)
         {
-            1 =>
-                AntialiasingQuality.Low,
-            2 =>
-                AntialiasingQuality.Medium,
-            3 =>
-                AntialiasingQuality.High,
-            _ => urpCamData.antialiasingQuality
-        };
-
+            camData.antialiasingQuality = newQuality switch
+            {
+                1 =>
+                    AntialiasingQuality.Low,
+                2 =>
+                    AntialiasingQuality.Medium,
+                3 =>
+                    AntialiasingQuality.High,
+                _ => camData.antialiasingQuality
+            };
+        }
+        
         PlayerPrefs.SetInt("AntiAliasingQuality", newQuality);
     }
     

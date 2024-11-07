@@ -15,7 +15,7 @@ public class GameUI : MonoBehaviour
         StartCoroutine(UpdateGameUI());
     }
 
-    private string normalizeLevelTime(int rawTime)
+    public string normalizeLevelTime(int rawTime)
     {
         return TimeSpan.FromSeconds(rawTime).ToString(@"mm\:ss");
     }
