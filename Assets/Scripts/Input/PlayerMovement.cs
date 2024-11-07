@@ -150,19 +150,14 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         GameObject collidedObject = other.gameObject;
-        if (collidedObject.layer == 6)
-        {
-            FixedJoint movingPhysicsJoint = gameObject.AddComponent<FixedJoint>();
-            Rigidbody connectedRb = other.gameObject.GetComponentInParent<Rigidbody>();
-            movingPhysicsJoint.connectedBody = connectedRb;
-            movingPhysicsJoint.massScale = playerRb.mass;
-            movingPhysicsJoint.connectedMassScale = connectedRb.mass;
-        }
-    }
-
-    public float GetAmountRotated()
-    {
-        return amountRotated;
+        if (collidedObject.layer != 6) return;
+        
+        FixedJoint movingPhysicsJoint = gameObject.AddComponent<FixedJoint>();
+        Rigidbody connectedRb = other.gameObject.GetComponentInParent<Rigidbody>();
+        movingPhysicsJoint.connectedBody = connectedRb;
+        movingPhysicsJoint.enableCollision = true;
+        movingPhysicsJoint.massScale = playerRb.mass;
+        movingPhysicsJoint.connectedMassScale = connectedRb.mass;
     }
     
     private void OnCollisionExit(Collision other)
@@ -172,7 +167,12 @@ public class PlayerMovement : MonoBehaviour
             Destroy(gameObject.GetComponent<FixedJoint>());
         }
     }
-
+    
+    public float GetAmountRotated()
+    {
+        return amountRotated;
+    }
+    
     private void OnDestroy()
     {
         // Prevent scene load shenanigans involving the player controller (I'm serious when I say I lost sleep due to this simple issue)

@@ -16,7 +16,7 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isFirstTrigger)
+        if (isFirstTrigger && other.gameObject.CompareTag("Player"))
         {
             sceneCheckpoints.SetNewCheckpoint(checkpointIndex);
         }

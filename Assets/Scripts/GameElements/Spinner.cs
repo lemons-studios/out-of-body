@@ -16,6 +16,6 @@ public class Spinner : MonoBehaviour
     private void FixedUpdate()
     {
         Quaternion deltaRotation = Quaternion.Euler(rotationVector * Time.fixedDeltaTime);
-        spinnerRb.MoveRotation(spinnerRb.rotation * deltaRotation);
+        spinnerRb.MoveRotation(spinnerRb.transform.localRotation * deltaRotation);
     }
 }
