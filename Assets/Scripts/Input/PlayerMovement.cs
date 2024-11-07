@@ -151,20 +151,35 @@ public class PlayerMovement : MonoBehaviour
     {
         GameObject collidedObject = other.gameObject;
         if (collidedObject.layer != 6) return;
+        // Add a FixedJoint to the player if it doesn't already have one
         
-        FixedJoint movingPhysicsJoint = gameObject.AddComponent<FixedJoint>();
-        Rigidbody connectedRb = other.gameObject.GetComponentInParent<Rigidbody>();
-        movingPhysicsJoint.connectedBody = connectedRb;
-        movingPhysicsJoint.enableCollision = true;
-        movingPhysicsJoint.massScale = playerRb.mass;
-        movingPhysicsJoint.connectedMassScale = connectedRb.mass;
+        if (gameObject.GetComponent<FixedJoint>() == null)
+        {
+            FixedJoint movingPhysicsJoint = gameObject.AddComponent<FixedJoint>();
+
+            // Find the Rigidbody to connect to (in this case, "Rotation normalizer")
+            Rigidbody connectedRb = other.gameObject.GetComponentInParent<Rigidbody>();
+            if (connectedRb != null)
+            {
+                movingPhysicsJoint.connectedBody = connectedRb;
+                movingPhysicsJoint.breakForce = Mathf.Infinity; // Prevents accidental breaking due to force
+                movingPhysicsJoint.breakTorque = Mathf.Infinity;
+            }
+            else
+            {
+                Debug.LogWarning("No Rigidbody found in parent hierarchy for the object we collided with.");
+            }
+        }
     }
     
     private void OnCollisionExit(Collision other)
     {
         if (other.gameObject.layer == 6)
         {
-            Destroy(gameObject.GetComponent<FixedJoint>());
+            // Check if FixedJoint exists on this GameObject before trying to destroy it
+            FixedJoint joint = gameObject.GetComponent<FixedJoint>();
+            if (joint != null) Destroy(joint);
+            
         }
     }
     
