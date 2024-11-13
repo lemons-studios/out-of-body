@@ -68,10 +68,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void Jump()
     {
-        if (isPlayerGrounded())
-        {
-            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
-        }
+        playerRb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
     }
 
     private void onSprintToggled(bool started)
@@ -82,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isPlayerGrounded()
     {
         // Quick and easy check
-        return Physics.Raycast(jumpDetectorFirePoint.transform.position, transform.TransformDirection(Vector3.down), 0.1f);
+        return Physics.Raycast(jumpDetectorFirePoint.transform.position, transform.TransformDirection(Vector3.down), 0.5f);
     }
 
     // Long chain of bool carrying, maybe I should just assign it to a class bool
@@ -145,42 +142,6 @@ public class PlayerMovement : MonoBehaviour
         
         // Adjust to final rotation to prevent rounding errors with floats
         gameObject.transform.rotation = Quaternion.Euler(0, targetRotation, 0);
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        GameObject collidedObject = other.gameObject;
-        if (collidedObject.layer != 6) return;
-        // Add a FixedJoint to the player if it doesn't already have one
-        
-        if (gameObject.GetComponent<FixedJoint>() == null)
-        {
-            FixedJoint movingPhysicsJoint = gameObject.AddComponent<FixedJoint>();
-
-            // Find the Rigidbody to connect to (in this case, "Rotation normalizer")
-            Rigidbody connectedRb = other.gameObject.GetComponentInParent<Rigidbody>();
-            if (connectedRb != null)
-            {
-                movingPhysicsJoint.connectedBody = connectedRb;
-                movingPhysicsJoint.breakForce = Mathf.Infinity; // Prevents accidental breaking due to force
-                movingPhysicsJoint.breakTorque = Mathf.Infinity;
-            }
-            else
-            {
-                Debug.LogWarning("No Rigidbody found in parent hierarchy for the object we collided with.");
-            }
-        }
-    }
-    
-    private void OnCollisionExit(Collision other)
-    {
-        if (other.gameObject.layer == 6)
-        {
-            // Check if FixedJoint exists on this GameObject before trying to destroy it
-            FixedJoint joint = gameObject.GetComponent<FixedJoint>();
-            if (joint != null) Destroy(joint);
-            
-        }
     }
     
     public float GetAmountRotated()
