@@ -15,27 +15,17 @@ public class CheckpointAndAttempts : MonoBehaviour
 
     public void OnPlayerFail(GameObject player)
     {
-        Debug.Log("Womp womp");
         player.transform.position = checkpoints[currentCheckpoint].transform.position;
         attempts++;
     }
 
     public void SetNewCheckpoint(int checkpointIndex)
     {
-        Debug.Log($"New checkpoint set! {checkpointIndex}");
         currentCheckpoint = checkpointIndex;
     }
 
     public int GetAttempts()
     {
         return attempts;
-    }
-
-    private void SortCheckpointsByIndex()
-    {
-        for (int i = 0; i < checkpoints.Length; i++)
-        {
-            
-        }
     }
 }

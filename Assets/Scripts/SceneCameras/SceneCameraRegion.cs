@@ -15,7 +15,10 @@ public class SceneCameraRegion : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        sceneCameraControls.switchSceneCameraView(regionIndex);
-        GameObject.FindGameObjectWithTag("GameUIRoot").GetComponent<GameUI>().setCameraText(regionIndex + 1);
+        if (other.gameObject.CompareTag("Player"))
+        {
+            sceneCameraControls.switchSceneCameraView(regionIndex);
+            GameObject.FindGameObjectWithTag("GameUIRoot").GetComponent<GameUI>().setCameraText(regionIndex + 1);
+        }
     }
 }
