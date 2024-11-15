@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
-using Unity.Mathematics;
 using UnityEngine;
 
 // Partial help from the robot on this one (I still wrote most of this script)
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] 
+    public LayerMask groundLayer;
+    
     public float acceleration = 10f;
     public float deceleration = 10f;
     public float rotateSpeed = 0.75f;
@@ -20,15 +22,18 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine rotatePlayerRoutine, rotateHelperRoutine;
     private PlayerInput playerInput;
     private Rigidbody playerRb;
-    private GameObject jumpDetectorFirePoint;
+    [SerializeField] 
+    private Transform groundCheck;
     private Vector3 currentVelocity;
-
-    private float amountRotated = 0;
+    
+    [SerializeField] 
+    private float groundDistance = 0.1f;
+    private float amountRotated;
     
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        jumpDetectorFirePoint = GameObject.FindGameObjectWithTag("PlayerJumpDetector");
+        groundCheck = GameObject.FindGameObjectWithTag("PlayerJumpDetector").transform;
         rotationSource = GetComponent<AudioSource>();
         playerRb = GetComponent<Rigidbody>();
         
@@ -47,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        
         if (playerRb)
         {
             // ReSharper disable once Unity.PerformanceCriticalCodeInvocation (Resource is expensive but it's required for movement so it's ok)
@@ -68,18 +74,15 @@ public class PlayerMovement : MonoBehaviour
     
     private void Jump()
     {
-        playerRb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+        if (IsPlayerGrounded())
+        {
+            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+        }
     }
 
     private void onSprintToggled(bool started)
     {
-        moveSpeed *= started ? sprintMultiplier : 1f / sprintMultiplier; // Genuine genius from the robot from this one too, I should absolutely get better at math
-    }
-    
-    private bool isPlayerGrounded()
-    {
-        // Quick and easy check
-        return Physics.Raycast(jumpDetectorFirePoint.transform.position, transform.TransformDirection(Vector3.down), 0.5f);
+        moveSpeed *= started ? sprintMultiplier : 1f / sprintMultiplier; // Genuine genius from the robot here, I should absolutely get better at math
     }
 
     // Long chain of bool carrying, maybe I should just assign it to a class bool
@@ -100,11 +103,15 @@ public class PlayerMovement : MonoBehaviour
     private void onRotateEnd()
     { 
        // Disable loop on the rotationSource audio source when player stops rotating
-       rotationSource.loop = false;
-       rotationSource.Stop();
+       try
+       {
+           rotationSource.loop = false;
+           rotationSource.Stop();
        
-       StopCoroutine(rotateHelperRoutine);
-       rotateHelperRoutine = null;
+           StopCoroutine(rotateHelperRoutine);
+           rotateHelperRoutine = null;
+       }
+       catch (NullReferenceException){} // Expected to happen sometimes if the user tries to rotate too fast
     }
     
     private IEnumerator rotatePlayerHelper(bool isClockwise)
@@ -142,6 +149,11 @@ public class PlayerMovement : MonoBehaviour
         
         // Adjust to final rotation to prevent rounding errors with floats
         gameObject.transform.rotation = Quaternion.Euler(0, targetRotation, 0);
+    }
+
+    private bool IsPlayerGrounded()
+    {
+        return Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, groundLayer);
     }
     
     public float GetAmountRotated()
