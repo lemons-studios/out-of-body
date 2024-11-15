@@ -10,12 +10,15 @@ public class FallingPlatform : MonoBehaviour
     private GameObject Player;
     private Vector3 originalPosition;
     private Rigidbody platformRb;
+    private Collider platformCollider;
     private Coroutine fallWaitRoutine;
+    
     private bool isFalling;
     
     private void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
+        platformCollider = GetComponent<Collider>();
         originalPosition = gameObject.transform.position;
         platformRb = GetComponent<Rigidbody>();
     }
@@ -44,10 +47,11 @@ public class FallingPlatform : MonoBehaviour
         {
             isFalling = true;
             platformRb.constraints &= ~RigidbodyConstraints.FreezePositionY;
+            platformCollider.enabled = false;
             yield return new WaitForSeconds(3.5f); // Wait for platform to raise up again
             platformRb.constraints |= RigidbodyConstraints.FreezePositionY;
-            
-            gameObject.transform.localPosition = originalPosition;
+            platformCollider.enabled = true;
+            gameObject.transform.position = originalPosition;
             isFalling = false;
         }
         
