@@ -19,6 +19,7 @@ TagManager:
   - SceneCameraRegion
   - physicsRotationEmpty
   - Checkpoint
+  - GlobalSfx
   layers:
   - Default
   - TransparentFX

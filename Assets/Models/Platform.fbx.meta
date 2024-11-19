@@ -3,7 +3,17 @@ guid: 54394b8840100cd4f8e61905c44869ad
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Base
+    second: {fileID: 2100000, guid: 7b615fd10908de04680686e6d004d54b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CenterLight
+    second: {fileID: 2100000, guid: 78464396ada767144a07c086b08df82c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

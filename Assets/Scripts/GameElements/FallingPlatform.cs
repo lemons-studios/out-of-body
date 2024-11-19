@@ -7,6 +7,8 @@ public class FallingPlatform : MonoBehaviour
     public float timeBeforeFall = 2.5f;
     public float platformFallPreventDistance = 5f;
     
+    private AudioSource sfxSource;
+    [SerializeField] private AudioClip platformFallSoundEffect;
     private GameObject Player;
     private Vector3 originalPosition;
     private Rigidbody platformRb;
@@ -21,6 +23,7 @@ public class FallingPlatform : MonoBehaviour
         platformCollider = GetComponent<Collider>();
         originalPosition = gameObject.transform.position;
         platformRb = GetComponent<Rigidbody>();
+        sfxSource = GameObject.FindGameObjectWithTag("GlobalSfx").GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter(Collision other)
@@ -33,17 +36,21 @@ public class FallingPlatform : MonoBehaviour
 
     private void OnCollisionExit(Collision other)
     {
-        if (!IsPlayerAwayFromPlatform() && !isFalling && IsPlayer(other.gameObject))
+        if (!PlayerInRange() && !isFalling && IsPlayer(other.gameObject))
         {
             StopCoroutine(fallWaitRoutine);
             fallWaitRoutine = null;
+            sfxSource.Stop();
         }
     }
 
     private IEnumerator WaitForFall()
     {
+        if (sfxSource.isPlaying) sfxSource.Stop();
+        sfxSource.PlayOneShot(platformFallSoundEffect);
+        
         yield return new WaitForSeconds(timeBeforeFall);
-        if (!IsPlayerAwayFromPlatform())
+        if (!PlayerInRange()) 
         {
             isFalling = true;
             platformRb.constraints &= ~RigidbodyConstraints.FreezePositionY;
@@ -58,7 +65,7 @@ public class FallingPlatform : MonoBehaviour
         fallWaitRoutine = null; // unset fallWaitRoutine after coroutine finishes execution
     }
 
-    private bool IsPlayerAwayFromPlatform()
+    private bool PlayerInRange()
     {
         return Vector3.Distance(Player.transform.position, originalPosition) > platformFallPreventDistance;
     }
