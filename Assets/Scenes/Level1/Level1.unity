@@ -1646,6 +1646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 197823853}
   - component: {fileID: 197823854}
+  - component: {fileID: 197823855}
   m_Layer: 0
   m_Name: SpinnerPlatformContainer
   m_TagString: Untagged
@@ -1688,14 +1689,36 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
+  m_IsKinematic: 1
+  m_Interpolate: 2
   m_Constraints: 94
   m_CollisionDetection: 2
+--- !u!64 &197823855
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197823852}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1001 &200865239
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17071,7 +17094,7 @@ Transform:
   m_GameObject: {fileID: 1537299228}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.707107, z: -0, w: 0.7071066}
-  m_LocalPosition: {x: -566.68, y: -330.34, z: -45.57}
+  m_LocalPosition: {x: -564.37, y: -325.85, z: -4.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -24723,8 +24746,8 @@ Transform:
   m_GameObject: {fileID: 919132147637407115}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.70710677, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 10.06, y: -1.5302, z: -4.3}
-  m_LocalScale: {x: 2.5732813, y: 2.5732813, z: 2.5732813}
+  m_LocalPosition: {x: 10.06, y: -0.84563, z: -4.3}
+  m_LocalScale: {x: 2.1183767, y: 2.1183767, z: 2.1183767}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 533193074300252895}
@@ -24760,7 +24783,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7446f3a01532f3c4aa6aa28c99b3a136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 5
+  rotationSpeed: 15
 --- !u!1 &1768273529960694874
 GameObject:
   m_ObjectHideFlags: 0
@@ -24772,7 +24795,6 @@ GameObject:
   - component: {fileID: 9000289631006174128}
   - component: {fileID: 501132679647967492}
   - component: {fileID: 6521145673455292378}
-  - component: {fileID: 9000289631006174129}
   m_Layer: 0
   m_Name: SpinnerPlatform
   m_TagString: Untagged
@@ -25343,27 +25365,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 197823853}
   m_LocalEulerAnglesHint: {x: -89.98, y: 14.5, z: -14.85}
---- !u!65 &9000289631006174129
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1768273529960694874}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.02, y: 0.020000001, z: 0.025}
-  m_Center: {x: 5.2070024e-12, y: -9.402007e-10, z: -0.0025}
 --- !u!54 &9028701563414798498
 Rigidbody:
   m_ObjectHideFlags: 0
