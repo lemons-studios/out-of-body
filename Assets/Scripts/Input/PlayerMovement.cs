@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 // Partial help from the robot on this one (I still wrote most of this script)
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] 
@@ -52,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
         if (playerRb)
         {
             // ReSharper disable once Unity.PerformanceCriticalCodeInvocation (Resource is expensive but it's required for movement so it's ok)
@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
             // Smoothly interpolate to the target velocity
             currentVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, (targetVelocity.magnitude > 0 ? acceleration : deceleration) * Time.fixedDeltaTime);
             currentVelocity.y = playerRb.velocity.y; // Preserve vertical velocity
-
+            
             playerRb.velocity = currentVelocity;
         }
     }
