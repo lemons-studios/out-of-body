@@ -7847,7 +7847,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -7923,7 +7923,7 @@ Transform:
   m_GameObject: {fileID: 702856968}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.121, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18046,7 +18046,7 @@ Transform:
   m_GameObject: {fileID: 1537299228}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.707107, z: -0, w: 0.7071066}
-  m_LocalPosition: {x: -578.79, y: -329.9, z: -44.22}
+  m_LocalPosition: {x: -577.663, y: -329.9, z: -44.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -23881,7 +23881,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 71ddc04f69750824da614b4398a9bf1e, type: 2}
+      objectReference: {fileID: 2100000, guid: 7b615fd10908de04680686e6d004d54b, type: 2}
     - target: {fileID: -7511558181221131132, guid: 54394b8840100cd4f8e61905c44869ad,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
@@ -26301,6 +26301,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
         type: 3}
+      propertyPath: ShapeModule.type
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
+        type: 3}
       propertyPath: ShapeModule.angle
       value: 5.97
       objectReference: {fileID: 0}
@@ -26341,6 +26346,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
         type: 3}
+      propertyPath: InitialModule.rotation3D
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
+        type: 3}
       propertyPath: NoiseModule.remapEnabled
       value: 1
       objectReference: {fileID: 0}
@@ -26357,12 +26367,17 @@ PrefabInstance:
     - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
         type: 3}
       propertyPath: ShapeModule.m_Position.z
-      value: -0.44
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
         type: 3}
       propertyPath: ShapeModule.radius.value
       value: 3.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
+        type: 3}
+      propertyPath: InitialModule.gravitySource
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
         type: 3}
@@ -26372,7 +26387,12 @@ PrefabInstance:
     - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
         type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 5000
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
         type: 3}
@@ -26382,12 +26402,12 @@ PrefabInstance:
     - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
         type: 3}
       propertyPath: InitialModule.startSpeed.scalar
-      value: 10
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
         type: 3}
       propertyPath: ShapeModule.randomPositionAmount
-      value: 5.86
+      value: 4.75
       objectReference: {fileID: 0}
     - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
         type: 3}
@@ -26397,7 +26417,7 @@ PrefabInstance:
     - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
         type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 59.46
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2476376180964739155, guid: c7a29d80b50d3be4681ad4d324a37cbc,
         type: 3}
