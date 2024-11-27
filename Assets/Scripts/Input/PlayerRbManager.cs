@@ -3,8 +3,10 @@ using UnityEngine;
 public class PlayerRbManager : MonoBehaviour
 {
     private Rigidbody playerRigidbody;
-    private Rigidbody platformRigidbody; // The moving platform's rigidbody
-    private Vector3 previousPlatformPosition; // To track platform movement
+    private Rigidbody platformRigidbody;
+    private Transform platformTransform;
+    private Vector3 previousPlatformPosition;
+    private Quaternion previousPlatformRotation;
 
     private void Start()
     {
@@ -13,31 +15,34 @@ public class PlayerRbManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Check if the collided object has a Rigidbody (e.g., moving platform)
-        if (collision.gameObject.GetComponent<Rigidbody>() != null)
-        {
-            platformRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-            previousPlatformPosition = platformRigidbody.position;
-        }
+        if (!collision.gameObject.TryGetComponent(out Rigidbody rb)) return;
+        platformRigidbody = rb;
+        platformTransform = rb.transform;
+        previousPlatformPosition = platformTransform.position;
+        previousPlatformRotation = platformTransform.rotation;
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        // Continue syncing player position with the platform
-        if (platformRigidbody != null)
-        {
-            Vector3 platformDelta = platformRigidbody.position - previousPlatformPosition;
-            playerRigidbody.position += platformDelta; // Apply platform movement to the player
-            previousPlatformPosition = platformRigidbody.position; // Update platform position
-        }
+        if (platformRigidbody == null) return;
+        Vector3 platformDeltaPosition = platformTransform.position - previousPlatformPosition;
+        Quaternion platformDeltaRotation = platformTransform.rotation * Quaternion.Inverse(previousPlatformRotation);
+
+        Vector3 localPlayerPosition = platformTransform.InverseTransformPoint(playerRigidbody.position);
+        localPlayerPosition = platformDeltaRotation * localPlayerPosition;
+        playerRigidbody.position = platformTransform.TransformPoint(localPlayerPosition) + platformDeltaPosition;
+
+        playerRigidbody.rotation = platformDeltaRotation * playerRigidbody.rotation;
+
+        // Update cached values
+        previousPlatformPosition = platformTransform.position;
+        previousPlatformRotation = platformTransform.rotation;
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        // Stop syncing when the player leaves the platform
-        if (collision.gameObject.GetComponent<Rigidbody>() == platformRigidbody)
-        {
-            platformRigidbody = null;
-        }
+        if (collision.gameObject.GetComponent<Rigidbody>() != platformRigidbody) return;
+        platformRigidbody = null;
+        platformTransform = null;
     }
 }
