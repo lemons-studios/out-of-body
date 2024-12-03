@@ -1,0 +1,1 @@
+using UnityEngine; public class ConfineMouseOnMainMenu : MonoBehaviour { private void Awake() { Cursor.lockState = CursorLockMode.Confined; } } // There is no way this file will ever need to be edited again, so I decided to minify it for fun
