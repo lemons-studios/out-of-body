@@ -7,11 +7,12 @@ public class EndZone : MonoBehaviour
     public TextMeshProUGUI timeStat, attemptsStat, rotationStat;
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.CompareTag("Player")) return;
+        GameObject collidedObject = other.gameObject;
+        if (!collidedObject.CompareTag("Player")) return;
+        collidedObject.GetComponent<Rigidbody>().isKinematic = true;
         
-        GameObject player = other.gameObject;
         resultsUI.SetActive(true);
-        rotationStat.text = $"Rotated {player.GetComponent<PlayerMovement>().GetAmountRotated()}\u00b0";
+        rotationStat.text = $"Rotated {collidedObject.GetComponent<PlayerMovement>().GetAmountRotated()}\u00b0"; // u00b0 being the degree symbol
         
         string timeToComplete = GameObject.FindGameObjectWithTag("GameUIRoot").GetComponent<GameUI>().normalizeLevelTime(Mathf.FloorToInt(Time.timeSinceLevelLoad));
         timeStat.text = $"Time: {timeToComplete}";

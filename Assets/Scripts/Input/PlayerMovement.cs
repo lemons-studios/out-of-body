@@ -156,7 +156,12 @@ public class PlayerMovement : MonoBehaviour
         return Physics.Raycast(groundCheck.position, Vector3.down, groundDistance, groundLayer);
     }
     
-    public float GetAmountRotated()
+    public int GetAmountRotated()
+    {
+        return Mathf.FloorToInt(amountRotated);
+    }
+
+    public float GetTrueAmountRotated()
     {
         return amountRotated;
     }
