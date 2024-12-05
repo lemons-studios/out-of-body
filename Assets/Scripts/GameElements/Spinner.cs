@@ -7,7 +7,6 @@ public class Spinner : MonoBehaviour
     
     private Rigidbody spinnerRb;
     private Vector3 rotationVector;
-    private bool playerOnPlatform;
     private float trueRotationSpeed;
     
     private void Start()

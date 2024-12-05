@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 9092811349254159204}
   - component: {fileID: 2621262477780380383}
   - component: {fileID: 2079014698661316670}
-  m_Layer: 0
+  - component: {fileID: 9018030977379601689}
+  m_Layer: 7
   m_Name: SpinnerPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,6 +85,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &9018030977379601689
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298965558450458991}
+  m_Material: {fileID: 13400000, guid: cbb69a16ba3427d469937469516937e4, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.023, y: 0.021, z: -0.03}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &568234581984251118
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +116,6 @@ GameObject:
   m_Component:
   - component: {fileID: 37980517569195804}
   - component: {fileID: 5465481494255999775}
-  - component: {fileID: 1787981515178464190}
   m_Layer: 0
   m_Name: SpinnerPlatformContainer
   m_TagString: Untagged
@@ -137,7 +158,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -145,27 +166,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 94
   m_CollisionDetection: 1
---- !u!65 &1787981515178464190
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 568234581984251118}
-  m_Material: {fileID: 13400000, guid: cbb69a16ba3427d469937469516937e4, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.25, y: 0.05, z: 5.2}
-  m_Center: {x: 0, y: 2.78, z: 0}
 --- !u!1 &1320138752607066325
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +212,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7446f3a01532f3c4aa6aa28c99b3a136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 15
+  minRotationSpeed: 10
+  maxRotationSpeed: 35
+  speedMultiplier: 3.5
 --- !u!1 &3842643990113994014
 GameObject:
   m_ObjectHideFlags: 0
