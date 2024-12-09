@@ -7,10 +7,10 @@ public class Pusher : MonoBehaviour
     [SerializeField] private float extendWaitTime = 0.75f, retractWaitTime = 2.75f;
     [SerializeField] private float pusherMovementDistance = 2.5f;
     [SerializeField] private float pusherMoveTime = 0.25f;
-    [SerializeField] private AudioClip extendSound, retractSound;
+    [SerializeField] private AudioClip moveSound;
     private AudioSource sfxSource;
     private bool isExtended;
-    public bool isExtending;
+    [HideInInspector] public bool isExtending;
 
     private void Start()
     {
@@ -27,8 +27,7 @@ public class Pusher : MonoBehaviour
             float targetPosY = startPosY + (isExtended ? -pusherMovementDistance : pusherMovementDistance);
             float elapsed = 0f;
             
-            // sfxSource?.PlayOneShot(isExtended ? retractSound : extendSound);
-
+            sfxSource?.PlayOneShot(moveSound);
             isExtending = true;
             while (elapsed < pusherMoveTime)
             {

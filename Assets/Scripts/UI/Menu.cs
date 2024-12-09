@@ -14,7 +14,7 @@ public class Menu : MonoBehaviour
     
     private Coroutine selectorCoroutine;
     private PlayerInput playerInput;
-    private AudioSource mainMenuAudioSource;
+    private AudioSource sceneAudioSource;
 
     private void Start()
     {
@@ -22,7 +22,7 @@ public class Menu : MonoBehaviour
         playerInput = new PlayerInput();
         playerInput.UI.DisableSubmenu.performed += _ => EscapeActions();
         playerInput.Enable();
-        mainMenuAudioSource = GameObject.FindGameObjectWithTag("GlobalSfx").GetComponent<AudioSource>();
+        sceneAudioSource = GameObject.FindGameObjectWithTag("GlobalSfx")?.GetComponent<AudioSource>();
         
         // Set version on the version tmp asset
         versionText.text = $"Version {Application.version}";
@@ -107,7 +107,7 @@ public class Menu : MonoBehaviour
                 selectorCoroutine = null;
             }
         }
-        mainMenuAudioSource.PlayOneShot(menuSelectionSound);
+        sceneAudioSource.PlayOneShot(menuSelectionSound);
         selectorCoroutine = StartCoroutine(moveMenuSelector(yPos, menuSelectorMoveTime));
     }
 
