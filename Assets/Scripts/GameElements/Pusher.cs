@@ -1,68 +1,53 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class Pusher : MonoBehaviour
 {
-    public GameObject[] movePositions;
-    [Space]
-    public float moveTime = 2.5f;
-    public float waitTime = 1.5f;
-    
-    private int currentPosition = 0;
+    [SerializeField] private GameObject pusherObject;
+    [SerializeField] private float extendWaitTime = 0.75f, retractWaitTime = 2.75f;
+    [SerializeField] private float pusherMovementDistance = 2.5f;
+    [SerializeField] private float pusherMoveTime = 0.25f;
+    [SerializeField] private AudioClip extendSound, retractSound;
+    private AudioSource sfxSource;
+    private bool isExtended;
 
     private void Start()
     {
-        if (movePositions == null || movePositions.Length == 0)
-        {
-            Debug.LogError("Move positions array is not set or empty.");
-            return;
-        }
-
-        currentPosition = 0;  // Ensure the starting position is initialized
-        StartCoroutine(PusherMoveHelper());
+        StartCoroutine(PlatformMovementLoop());
+        sfxSource = GameObject.FindGameObjectWithTag("GlobalSfx").GetComponent<AudioSource>();
     }
 
-    private IEnumerator PusherMoveHelper()
+    private IEnumerator PlatformMovementLoop()
     {
         while (true)
         {
-            yield return StartCoroutine(MovePusher());
+            float waitTime = isExtended ? retractWaitTime : extendWaitTime;
+            float startPosY = pusherObject.transform.position.y;
+            float targetPosY = startPosY + (isExtended ? -pusherMovementDistance : pusherMovementDistance);
+            float elapsed = 0f;
+            
+            // sfxSource?.PlayOneShot(isExtended ? retractSound : extendSound);
+            
+            while (elapsed < pusherMoveTime)
+            {
+                elapsed += Time.deltaTime;
+                float t = elapsed / pusherMoveTime;
+                float smoothT = Mathf.SmoothStep(0f, 1f, t);
+
+                Vector3 newPosition = pusherObject.transform.position;
+                newPosition.y = Mathf.Lerp(startPosY, targetPosY, smoothT);
+                pusherObject.transform.position = newPosition;
+
+                yield return null; // Wait for the next frame
+            }
+
+            // Floating point error check
+            Vector3 finalPosition = pusherObject.transform.position;
+            finalPosition.y = targetPosY;
+            pusherObject.transform.position = finalPosition;
+
+            isExtended = !isExtended;
             yield return new WaitForSeconds(waitTime);
-            currentPosition = GetNextPosition();
         }
-    }
-
-    private IEnumerator MovePusher()
-    {
-        float elapsed = 0;
-        Vector3 objectPosition = transform.position;
-        Vector3 targetPosition = movePositions[currentPosition].transform.position;
-
-        while (elapsed < moveTime)
-        {
-            elapsed += Time.deltaTime;
-            float time = Mathf.SmoothStep(0, 1, elapsed / moveTime);
-            transform.position = Vector3.Lerp(objectPosition, targetPosition, time);
-            yield return null;
-        }
-
-        // Ensure the final position is exactly the target
-        transform.position = targetPosition;
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            Rigidbody playerRb = other.gameObject.GetComponent<Rigidbody>();
-            playerRb.AddForce(15.5f * Vector3.up , ForceMode.Acceleration);
-        }
-    }
-
-
-    private int GetNextPosition()
-    {
-        return (currentPosition >= movePositions.Length - 1) ? 0 : currentPosition + 1;
     }
 }
