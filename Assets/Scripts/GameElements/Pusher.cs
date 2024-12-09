@@ -10,6 +10,7 @@ public class Pusher : MonoBehaviour
     [SerializeField] private AudioClip extendSound, retractSound;
     private AudioSource sfxSource;
     private bool isExtended;
+    public bool isExtending;
 
     private void Start()
     {
@@ -27,7 +28,8 @@ public class Pusher : MonoBehaviour
             float elapsed = 0f;
             
             // sfxSource?.PlayOneShot(isExtended ? retractSound : extendSound);
-            
+
+            isExtending = true;
             while (elapsed < pusherMoveTime)
             {
                 elapsed += Time.deltaTime;
@@ -40,6 +42,7 @@ public class Pusher : MonoBehaviour
 
                 yield return null; // Wait for the next frame
             }
+            isExtending = false;
 
             // Floating point error check
             Vector3 finalPosition = pusherObject.transform.position;

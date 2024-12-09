@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class Menu : MonoBehaviour
 {
     public AudioClip menuSelectionSound;
-    public AudioSource mainMenuAudioSource;
     public GameObject pauseMenu;
     public Image buttonSelector;
     public TextMeshProUGUI versionText;
@@ -15,14 +14,15 @@ public class Menu : MonoBehaviour
     
     private Coroutine selectorCoroutine;
     private PlayerInput playerInput;
-    
+    private AudioSource mainMenuAudioSource;
+
     private void Start()
     {
-        
         // Initialize playerInput and set bindings
         playerInput = new PlayerInput();
         playerInput.UI.DisableSubmenu.performed += _ => EscapeActions();
         playerInput.Enable();
+        mainMenuAudioSource = GameObject.FindGameObjectWithTag("GlobalSfx").GetComponent<AudioSource>();
         
         // Set version on the version tmp asset
         versionText.text = $"Version {Application.version}";
