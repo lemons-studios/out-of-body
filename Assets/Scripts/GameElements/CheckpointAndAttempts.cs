@@ -9,8 +9,7 @@ public class CheckpointAndAttempts : MonoBehaviour
     private void Start()
     {
         checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
-        checkpoints = checkpoints.OrderBy(checkpoint => checkpoint.GetComponent<Checkpoint>().checkpointIndex)
-            .ToArray();
+        checkpoints = checkpoints.OrderBy(checkpoint => checkpoint.GetComponent<Checkpoint>().checkpointIndex).ToArray();
     }
 
     public void OnPlayerFail(GameObject player)
@@ -19,13 +18,6 @@ public class CheckpointAndAttempts : MonoBehaviour
         attempts++;
     }
 
-    public void SetNewCheckpoint(int checkpointIndex)
-    {
-        currentCheckpoint = checkpointIndex;
-    }
-
-    public int GetAttempts()
-    {
-        return attempts;
-    }
+    public void SetNewCheckpoint(int checkpointIndex) { currentCheckpoint = checkpointIndex; }
+    public int GetAttempts() { return attempts; }
 }

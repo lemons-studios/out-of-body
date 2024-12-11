@@ -118,11 +118,7 @@ public class PlayerMovement : MonoBehaviour
     {
         while (true)
         {
-            if (rotatePlayerRoutine != null)
-            {
-                StopCoroutine(rotatePlayerRoutine);
-            }
-
+            if (rotatePlayerRoutine != null) { StopCoroutine(rotatePlayerRoutine); }
             rotatePlayerRoutine = StartCoroutine(rotatePlayer(isClockwise));
             yield return new WaitForSeconds(rotateDelay); 
         }
@@ -161,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
         return Mathf.FloorToInt(amountRotated);
     }
 
-    public float GetTrueAmountRotated()
+    public float GetUnroundedRotation()
     {
         return amountRotated;
     }

@@ -36,12 +36,10 @@ public class FallingPlatform : MonoBehaviour
 
     private void OnCollisionExit(Collision other)
     {
-        if (!PlayerInRange() && !isFalling && IsPlayer(other.gameObject))
-        {
-            StopCoroutine(fallWaitRoutine);
-            fallWaitRoutine = null;
-            sfxSource.Stop();
-        }
+        if (PlayerInRange() || isFalling || !IsPlayer(other.gameObject)) return;
+        StopCoroutine(fallWaitRoutine);
+        fallWaitRoutine = null;
+        sfxSource.Stop();
     }
 
     private IEnumerator WaitForFall()

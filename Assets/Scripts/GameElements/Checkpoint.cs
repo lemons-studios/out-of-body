@@ -16,10 +16,7 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isFirstTrigger && other.gameObject.CompareTag("Player"))
-        {
-            sceneCheckpoints.SetNewCheckpoint(checkpointIndex);
-        }
+        if (isFirstTrigger && other.gameObject.CompareTag("Player")) { sceneCheckpoints.SetNewCheckpoint(checkpointIndex); }
         isFirstTrigger = false;
     }
 }
