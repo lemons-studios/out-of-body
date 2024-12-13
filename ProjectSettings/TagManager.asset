@@ -20,6 +20,7 @@ TagManager:
   - physicsRotationEmpty
   - Checkpoint
   - GlobalSfx
+  - GlobalMusic
   layers:
   - Default
   - TransparentFX

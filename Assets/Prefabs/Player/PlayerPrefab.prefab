@@ -46,6 +46,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3154973476163553284, guid: 7da1fad9cc50629449ca575dfc8e6a31,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267740190384575303, guid: 7da1fad9cc50629449ca575dfc8e6a31,
+        type: 3}
+      propertyPath: SettingsMenuObject
+      value: 
+      objectReference: {fileID: 5940416429249961516}
     - target: {fileID: 5855691676750995507, guid: 7da1fad9cc50629449ca575dfc8e6a31,
         type: 3}
       propertyPath: m_Pivot.x
@@ -146,6 +156,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8628489523004240454, guid: 7da1fad9cc50629449ca575dfc8e6a31,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -154,6 +169,12 @@ PrefabInstance:
 --- !u!224 &2953154520263226907 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5855691676750995507, guid: 7da1fad9cc50629449ca575dfc8e6a31,
+    type: 3}
+  m_PrefabInstance: {fileID: 8770811873534973480}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5940416429249961516 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3154973476163553284, guid: 7da1fad9cc50629449ca575dfc8e6a31,
     type: 3}
   m_PrefabInstance: {fileID: 8770811873534973480}
   m_PrefabAsset: {fileID: 0}

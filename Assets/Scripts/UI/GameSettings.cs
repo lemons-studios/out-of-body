@@ -2,7 +2,9 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using TMPro;
+using UnityEngine.Assertions;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -11,7 +13,8 @@ public class GameSettings : MonoBehaviour
 {
     public AudioMixer mainVolume;
     public VolumeProfile postProcessData;
-    
+
+    public GameObject SettingsMenuObject;
     public TextMeshProUGUI volumeValue;
     public TMP_Dropdown qualityDropdown, aaQualityDropdown, crtDropdown;
     public Slider volumeSlider;
@@ -20,10 +23,7 @@ public class GameSettings : MonoBehaviour
 
     private void Awake()
     {
-        if (PlayerPrefs.GetInt("firstLaunchComplete") == 1)
-        {
-            SetOptionsValues();
-        }
+        SetOptionsValues();
     }
 
     private void SetOptionsValues()
@@ -39,6 +39,8 @@ public class GameSettings : MonoBehaviour
         
         volumeSlider.value = PlayerPrefs.GetFloat("Volume");
         SetVolume(volumeSlider.value);
+        
+        if (SceneManager.GetActiveScene().buildIndex != 0) SettingsMenuObject.SetActive(false); 
     }
 
     public void setRenderQuality(int quality)

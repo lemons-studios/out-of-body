@@ -27,8 +27,9 @@ public class Pusher : MonoBehaviour
             float targetPosY = startPosY + (isExtended ? -pusherMovementDistance : pusherMovementDistance);
             float elapsed = 0f;
             
-            sfxSource?.PlayOneShot(moveSound);
+            // sfxSource.PlayOneShot(moveSound); // For whatever reason, Unity prefers it if I don't check for null when calling this, so I guess it won't be implemented
             isExtending = true;
+            
             while (elapsed < pusherMoveTime)
             {
                 elapsed += Time.deltaTime;
@@ -41,8 +42,8 @@ public class Pusher : MonoBehaviour
 
                 yield return null; // Wait for the next frame
             }
+            
             isExtending = false;
-
             // Floating point error check
             Vector3 finalPosition = pusherObject.transform.position;
             finalPosition.y = targetPosY;
