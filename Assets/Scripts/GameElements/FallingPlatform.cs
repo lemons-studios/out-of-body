@@ -1,7 +1,9 @@
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[SuppressMessage("ReSharper", "BitwiseOperatorOnEnumWithoutFlags")]
 public class FallingPlatform : MonoBehaviour
 {
     public float timeBeforeFall = 2.5f;
@@ -30,7 +32,7 @@ public class FallingPlatform : MonoBehaviour
     {
         if (IsPlayer(other.gameObject) && fallWaitRoutine == null)
         {
-            fallWaitRoutine = StartCoroutine(WaitForFall());
+            fallWaitRoutine = StartCoroutine(FallRoutine());
         }
     }
 
@@ -42,7 +44,7 @@ public class FallingPlatform : MonoBehaviour
         sfxSource.Stop();
     }
 
-    private IEnumerator WaitForFall()
+    private IEnumerator FallRoutine()
     {
         if (sfxSource.isPlaying) sfxSource.Stop();
         sfxSource.PlayOneShot(platformFallSoundEffect);
@@ -55,9 +57,9 @@ public class FallingPlatform : MonoBehaviour
             platformCollider.enabled = false;
             yield return new WaitForSeconds(3.5f); // Wait for platform to raise up again
             platformRb.constraints |= RigidbodyConstraints.FreezePositionY;
-            platformCollider.enabled = true;
-            gameObject.transform.position = originalPosition;
             isFalling = false;
+            gameObject.transform.position = originalPosition;
+            platformCollider.enabled = true;
         }
         
         fallWaitRoutine = null; // unset fallWaitRoutine after coroutine finishes execution
